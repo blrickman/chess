@@ -2,6 +2,7 @@ use warnings;
 use strict;
 use Board;
 use Pieces;
+use Game;
 
 my $board = Board->new();
 my $piece2 = Rook->new(posx => 2, posy => 3, board => $board, white => 0);
