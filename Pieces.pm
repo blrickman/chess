@@ -311,11 +311,11 @@ sub _move {
   my $board = $self->board;
   my $max_dim = $board->_max_dim;
   my @moves;
-  push @moves, [$px,$py+1];
+  push @moves, [$px,$py+1] unless $board->get_space([$px,$py+1])->occupied;
   for my $move ([$px+1,$py+1], [$px-1,$py+1]) {
-    push @moves, $move if $board->get_space($move) && $board->get_space($move)->occupiable_by($self);
+    push @moves, $move if $board->get_space($move) && $board->get_space($move)->occupiable_by($self) && $board->get_space($move)->occupied;
   }
-  push @moves, [$px,$py+2] unless $self->movements;
+  push @moves, [$px,$py+2] unless $self->movements || $board->get_space([$px,$py+1])->occupied || $board->get_space([$px,$py+2])->occupied;
   return \@moves;
 }
 
