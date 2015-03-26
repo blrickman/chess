@@ -49,6 +49,9 @@ sub _move {
       push @moves, $move if $board->get_space($move) && $board->get_space($move)->occupiable_by($self);
     }
   }
+  unless($self->movements){
+    # check rooks to castle with
+  }
   return \@moves;
 }
 
@@ -315,3 +318,5 @@ sub _move {
   push @moves, [$px,$py+2] unless $self->movements;
   return \@moves;
 }
+
+1;
