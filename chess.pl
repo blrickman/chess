@@ -6,10 +6,14 @@ use Game;
 
 my $board = Board->new();
 my $piece2 = Rook->new(posx => 2, posy => 3, board => $board, white => 0);
-my $piece = Pawn->new(posx =>1, posy => 2, board => $board);
+my $piece =  Pawn->new(posx => 1, posy => 2, board => $board);
 $board->add_pieces([$piece,$piece2]);
 
+for (@{$board->pieces}) {
+  print "$_\n";
+}
 
+__END__
 print "{";
 for ( @{$piece->pot_moves()}) {
   print "{" . join(', ',@{$_})  . "},";

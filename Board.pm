@@ -36,7 +36,17 @@ sub add_pieces {
     my $space = $self->get_space($piece->position);
     die "Board Setup: Can't place two pieces on same spot" if $space->occupied;
     $space->piece($piece);
+    my $hold = $self->pieces;
+    push @{$hold}, $piece;
+    $self->pieces($hold);
   }
+}
+
+sub remove_piece {
+  my $self = shift;
+  my $piece = shift;
+  my $space = $self->get_space($piece->position);
+  $space->piece(undef);
 }
 
 sub _max_dim {
