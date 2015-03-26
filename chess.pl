@@ -30,7 +30,10 @@ $p7[$_]= Pawn->new(   posx => $_+1,posy => 7, board => $board, white => 0) for (
 my @pieces = (@p1,@p2,@p7,@p8);
 $board->add_pieces(\@pieces);
 
-$p8[5]->move_to(2,1)
+my $game = Game->new(board => $board);
+$game->draw_board;
+$board->remove_piece($p8[3]);
+$game->draw_board;
 
 
 __END__
