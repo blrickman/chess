@@ -5,6 +5,9 @@ use Board;
 use Piece;
 
 has 'board' => ( is => 'ro', isa => 'Board', );
+#has 'winner'
+#has 'turns'
+#has 'history'
 
 my $ps = {
   King   => ['♔', '♚'],
