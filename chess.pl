@@ -5,18 +5,13 @@ use Pieces;
 use Game;
 
 my $board = Board->new();
-my $piece2 = Rook->new(posx => 1, posy => 3, board => $board, white => 0);
-my $piece =  Pawn->new(posx => 1, posy => 2, board => $board);
-$board->add_pieces([$piece,$piece2]);
-
-$board->remove_piece($piece2);
-
-for (@{$board->pieces}) {
-  print "$_\n";
-}
+my $piece1 = Rook->new(posx => 1, posy => 1, board => $board);
+my $piece2 = Rook->new(posx => 8, posy => 1, board => $board, white => 1);
+my $piece3 = King->new(posx => 5, posy => 1, board => $board);
+$board->add_pieces([$piece1,$piece2,$piece3]);
 
 print "{";
-for ( @{$piece->pot_moves()}) {
+for ( @{$piece3->pot_moves()}) {
   print "{" . join(', ',@{$_})  . "},";
 };
 print "\b}\n";

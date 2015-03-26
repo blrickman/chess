@@ -49,8 +49,15 @@ sub _move {
       push @moves, $move if $board->get_space($move) && $board->get_space($move)->occupiable_by($self);
     }
   }
-  unless($self->movements){
-    # check rooks to castle with
+  unless($self->movements) {
+    my @rooks = grep {!$_->movements} grep {$_->white == $self->white} grep {/Rook/} @{$board->pieces};
+    for my $rook (@rooks) {
+      if ($rook->posx == 1 && $rook->posy == $self->posy) {
+        push @moves, [3,$self->posy] unless $board->check_occupied([2,$self->posy]) || $board->check_occupied([3,$self->posy]) || $board->check_occupied([4,$self->posy]);
+      } elsif ($rook->posx == 8 && $rook->posy == $self->posy) {
+        push @moves, [7,$self->posy] unless $board->check_occupied([6,$self->posy]) || $board->check_occupied([7,$self->posy]);
+      }
+    }
   }
   return \@moves;
 }
@@ -158,6 +165,8 @@ sub _move {
 ####################
 ###     ROOK     ###
 ####################
+
+# How will a rook castle?
 
 package Rook;
 use Moose;
@@ -300,6 +309,8 @@ sub _move {
 ####################
 ###     PAWN     ###
 ####################
+
+# make sure movements transfers if a pawn upgrades
 
 package Pawn;
 use Moose;
