@@ -29,6 +29,12 @@ sub get_space {
   return ${$self->spaces}[$pos->[0]][$pos->[1]] || 0;
 }
 
+sub check_occupied {
+  my $self = shift;
+  my $pos = shift;
+  return $self->get_space($pos)->occupied;
+}
+
 sub add_pieces {
   my $self = shift;
   my $pieces = shift;
