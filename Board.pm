@@ -47,6 +47,12 @@ sub remove_piece {
   my $piece = shift;
   my $space = $self->get_space($piece->position);
   $space->piece(undef);
+  my $hold;
+  for (@{$self->pieces}) {
+    next if $_ == $piece;
+    push @{$hold}, $_;
+  }
+  $self->pieces($hold);
 }
 
 sub _max_dim {
@@ -60,7 +66,7 @@ use Pieces;
 
 has 'posx' 	=> ( is => 'ro', isa => 'Int' );
 has 'posy'	=> ( is => 'ro', isa => 'Int' );
-has 'piece'	=> ( is => 'rw', isa => 'Piece', );
+has 'piece'	=> ( is => 'rw', isa => 'Maybe[Piece]', );
 has 'color'	=> ( 
   is 	  => 'ro', 
   isa 	  => 'Str', 
